@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-title Login Usersss
-=======
-title Login Us
->>>>>>> test
+
+title Login User
 
 
 User->+Routes: /user/login(Infos)
