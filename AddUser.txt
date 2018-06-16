@@ -1,0 +1,31 @@
+title AddUser
+
+User->+Routes: /user/new(User)
+activate User
+Routes->+UserController: UserController::registerUser(User)
+deactivate Routes
+UserController->+FormValidator: CheckForm(User)
+alt IF ERRORS IN FORM
+FormValidator-->UserController: Return false
+deactivate FormValidator
+UserController-->+View: renderView()
+deactivate UserController
+View-->User: Display View RegisterUser with a flash message "Erreur dans la saisie du formulaire"
+deactivate View
+end
+deactivate Routes
+FormValidator-->UserController: Return true
+else IF !EMPTY S_POST
+activate UserController
+UserController->+UserObject: new UserObject(User)
+UserObject-->UserController:return new userObject(User)
+deactivate UserObject
+UserController->+UserManager:UserManager::addUser(userObject)
+UserManager->+DB: INSERT INTO USER {userObject)
+DB-->-UserManager: OK
+UserManager-->-UserController: OK
+UserController-->User: [FLASH] "Utilisateur bien enregistré"
+
+
+
+
