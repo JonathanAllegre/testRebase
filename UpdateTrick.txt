@@ -23,7 +23,7 @@ BDD-->-TrickManager:OK
 TrickManager-->-TrickController: OK
 TrickController->+View: renderView(TrickContent) with updated Object
 View-->User: Display form Update with Updated Trick
-end
+endlllll
 TrickController->View: renderView(TrickContent) without modification
 deactivate TrickController
 View-->User: Display form Update with Trick Form prefilled
