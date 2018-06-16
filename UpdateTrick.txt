@@ -1,0 +1,30 @@
+title UpdateTrick
+
+note over User
+
+
+end note
+User->+Routes:/admin/post/update/{trick_id}
+activate User
+Routes->+TrickController:TrickController::update(Trick_id)
+deactivate Routes
+TrickController->+TrickManager:TrickManager::readPost(Trick_id)
+TrickManager->+BDD:SELECT * FROM Trick WHERE id = {id}
+BDD-->-TrickManager: return requestResult
+TrickManager->+TrickObject: new TrickObject()
+TrickObject-->-TrickManager: Return new instance of Trick
+TrickManager-->-TrickController: return new Post object
+alt IF FORM IS SEND
+TrickController->+TrickObject: Set content = new Content
+TrickObject-->-TrickController: Return Updated Object
+TrickController->+TrickManager:TrickManager::update(id,newContent)
+TrickManager->+PDO:UPDATE TRICK WHERE ID = {id} 
+BDD-->-TrickManager:OK
+TrickManager-->-TrickController: OK
+TrickController->+View: renderView(TrickContent) with updated Object
+View-->User: Display form Update with Updated Trick
+end5555
+TrickController->View: renderView(TrickContent) without modification
+deactivate TrickController
+View-->User: Display form Update with Trick Form prefilled
+mlùùmlk
