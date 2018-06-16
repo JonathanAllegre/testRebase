@@ -1,0 +1,33 @@
+title Login User
+
+
+User->+Routes: /user/login(Infos)
+activate User
+Routes->+UserController:UserController::loginUser(Infos)
+deactivate Routes
+UserController->+UserManager:getUserByMail(Infos.mail)
+
+UserManager->+DB: SELECT * FROM USER WHERE email = Infos.mail
+
+alt IF EMAIL NOT FOUND
+DB-->UserManager:return null
+UserManager-->UserController: Return null
+UserController-->User: Display [FLASH] "L'adresse n'a pas été trouvé" & refresh the page
+
+end
+DB-->UserManager:return User
+deactivate DB
+UserManager-->UserController: Retrun User
+deactivate UserManager
+UserController->+PasswordVerify: password_verify()
+alt IF USER.PASSWORD != FORM.PASSWORD
+PasswordVerify-->UserController: Return false
+UserController-->User:Display [FLASH] "Erreur dans le mot de passe" & refresh the page
+end
+PasswordVerify-->UserController: Return true
+UserController-->User:Display [FLASH] "Vous $etes maintenant connecté" & refresh the page
+
+
+
+`ml`ml
+

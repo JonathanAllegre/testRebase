@@ -27,4 +27,5 @@ end5555
 TrickController->View: renderView(TrickContent) without modification
 deactivate TrickController
 View-->User: Display form Update with Trick Form prefilled
-mlùùmlk
+lmkùmlk
+
